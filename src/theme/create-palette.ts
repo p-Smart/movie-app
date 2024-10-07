@@ -6,9 +6,9 @@ const createPalette = () => {
 
     return {
         primary: {
-            light: '#6fb1fc',
-            main: '#4364f7',
-            dark: '#1d006d',
+            light: '',
+            main: '',
+            dark: '',
         },
         success: '#1C9729',
         error: '#FF3E3E',
