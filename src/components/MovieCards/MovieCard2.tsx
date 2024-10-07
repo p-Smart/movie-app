@@ -61,8 +61,8 @@ const MovieCard2 = () => {
                     alignItems="center" 
                     alignSelf="flex-start"
                     >
-                        <Box color="white" as={SlSpeedometer} size={18} />
-                        <Text color="white">{"3:12:00"}</Text>
+                        <Box as={SlSpeedometer} size={18} />
+                        <Text>{"3:12:00"}</Text>
                     </Flex>
                 </Flex>
             </Flex>
