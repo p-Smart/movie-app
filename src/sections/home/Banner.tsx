@@ -81,8 +81,9 @@ const Banner = () => {
                 <Flex gap="20px">
                     <Flex gap="10px">
                         {
-                        tags.map( (tag) => (
+                        tags.map( (tag, k) => (
                             <Text
+                            key={k}
                             bgColor="white"
                             color="black"
                             p="5px 8px"
@@ -97,8 +98,8 @@ const Banner = () => {
                     </Flex>
                     <Flex gap="20px">
                         {
-                        metadata.map( (data) => (
-                            <Flex gap="5px" alignItems="center">
+                        metadata.map( (data, k) => (
+                            <Flex gap="5px" alignItems="center" key={k}>
                                 <Box color="white" as={data.Icon} size={24} />
                                 <Text color="white">{data.value}</Text>
                             </Flex>
