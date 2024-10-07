@@ -28,6 +28,9 @@ const TextField: FC<ITextField> = ({
             {startAdornment}
             <Input
             ml="10px"
+            _placeholder={{
+                color: "black"
+            }}
             {...inputProps}
             />
             {endAdornment}

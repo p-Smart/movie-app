@@ -3,12 +3,49 @@ import { GoClockFill } from "react-icons/go"
 import { IoMdPlayCircle, IoMdStar } from "react-icons/io"
 import { MdCalendarMonth } from "react-icons/md"
 import { SlSpeedometer } from "react-icons/sl"
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+import { Autoplay, Pagination} from 'swiper/modules';
 
 
 
 const Banner = () => {
 
 
+    return (
+        <Box 
+        w="100%"
+        >
+            <Swiper
+            loop
+            autoplay={{delay: 2500, pauseOnMouseEnter: true}}
+            slidesPerView={1}
+            pagination={{clickable: true}}
+            modules={[Pagination, Autoplay]}
+            style={{
+                position: 'relative',
+            }}
+            >
+            {
+                Array.from({length: 4}).map( (_, k) => (
+                    <SwiperSlide
+                    key={k}
+                    >
+                        <Slide />
+                    </SwiperSlide>
+                ) )
+            }
+            </Swiper>
+        </Box>
+    )
+    
+}
+
+
+const Slide = () => {
 
     const tags = ["Action", "Adventure", "Science Fiction"]
     const metadata = [

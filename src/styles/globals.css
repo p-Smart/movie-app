@@ -1,4 +1,3 @@
-@import url('/assets/fonts/ProximaNova/stylesheet.css');
 *{padding: 0; margin: 0; box-sizing: border-box;}
 
 a{color: currentColor; text-decoration: unset;}
@@ -24,5 +23,12 @@ html{ -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
 }
 
 .swiper-pagination-bullet {
-    background: white !important;
-}
+    background: #fff !important;
+    width: 14px !important;
+    height: 14px !important;
+    opacity: 1 !important;
+  }
+  
+  .swiper-pagination-bullet-active {
+    background-color: red !important;
+  }
