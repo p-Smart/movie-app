@@ -5,8 +5,9 @@ import Banner from "@/sections/home/Banner"
 const HomePage = () => {
     
     return (
-        <MainLayout> 
+        <MainLayout>
         <Banner />
+        
         </MainLayout>
     )
 }

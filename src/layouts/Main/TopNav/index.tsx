@@ -11,9 +11,9 @@ const TopNav = () => {
     return (
         <Flex
         py="30px"
-        px="20px"
+        px={{xs: "20px", md: "50px", lg: "100px", xl: "150px"}}
         alignItems="center"
-        justifyContent="center"
+        justifyContent="space-between"
         gap="20px"
         >
             <Flex gap="15px">

@@ -1,7 +1,6 @@
 import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react"
 import { GoClockFill } from "react-icons/go"
 import { IoMdPlayCircle, IoMdStar } from "react-icons/io"
-import Tag from "./Tag"
 import { MdCalendarMonth } from "react-icons/md"
 import { SlSpeedometer } from "react-icons/sl"
 
