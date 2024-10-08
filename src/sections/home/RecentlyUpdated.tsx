@@ -6,7 +6,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { useEffect, useState } from "react"
 import SwiperCore from "swiper"
-import { IoIosArrowRoundForward, IoMdArrowForward } from "react-icons/io"
+import { IoIosArrowRoundForward } from "react-icons/io"
 import { TMDBClient } from "@/utils/axios"
 
 

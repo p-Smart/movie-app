@@ -5,12 +5,16 @@ import { SlSpeedometer } from "react-icons/sl"
 
 
 export interface IMovieCardTrending extends StackProps {
-    
+    title: string;
+    rating: string;
+    runtime: string;
+    movie_tags: string[];
+    image: string;
 }
 
 
 const MovieCardTrending = ({
-
+    title, rating, runtime, movie_tags, image,
     ...stackProps
 }: IMovieCardTrending) => {
     
@@ -18,14 +22,13 @@ const MovieCardTrending = ({
     const metadata = [
         {
             Icon: SlSpeedometer,
-            value: "3:12:00"
+            value: runtime
         },
         {
             Icon: IoMdStar,
-            value: "8.5"
+            value: rating
         },
     ]
-    const tags = ["Action", "Comedy"]
 
     return (
         <Stack
@@ -37,7 +40,7 @@ const MovieCardTrending = ({
             w="100%"
             h="290px"
             borderRadius="8px"
-            backgroundImage={`url("/assets/images/dummy/Rectangle 3.png")`}
+            backgroundImage={`url("${image}")`}
             backgroundSize="cover"
             p="20px"
             position="relative"
@@ -69,11 +72,11 @@ const MovieCardTrending = ({
 
             <Flex alignItems="center" justify="space-between">
                 <Text variant="h6" isTruncated>
-                Medellin
+                {title}
                 </Text>
                 <Flex gap="10px">
                 {
-                tags.map( (tag, k) => (
+                movie_tags.map( (tag, k) => (
                     <Text
                     key={k}
                     bgColor="red"
