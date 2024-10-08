@@ -1,67 +1,55 @@
 import MovieCardTrending from "@/components/MovieCardTrending"
+import useGlobalStore from "@/stores"
 import { TMDBClient } from "@/utils/axios"
-import { Button, Flex, Grid, Stack, Text, useColorMode } from "@chakra-ui/react"
+import { Button, Flex, Grid, Skeleton, Stack, Text, useColorMode } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
+import toast from "react-hot-toast"
 import { IoIosArrowRoundForward } from "react-icons/io"
 
 
 
 const Trending = () => {
+    const [movieGenres, seriesGenres, genresLoading] = useGlobalStore(state => [state.movieGenres, state.seriesGenres, state.genresLoading])
     const {colorMode} = useColorMode()
-
-    // const [trendingMovies, setTrendingMovies] = useState([]);
-    // const [genres, setGenres] = useState({});
-
-    
-    // const fetchGenres = async () => {
-    //     try {
-    //     const { data: genresRes } = await TMDBClient.get("/genre/movie/list");
-    //     const genreMap = {};
-    //     genresRes.genres.forEach((genre) => {
-    //         genreMap[genre.id] = genre.name;
-    //     });
-    //     setGenres(genreMap);
-    //     } catch (error) {
-    //     console.error("Error fetching genres:", error);
-    //     }
-    // };
+    const [trendingMovies, setTrendingMovies] = useState([])
+    const [loading, setLoading] = useState(true)
 
     
-    // const fetchTrendingMovies = async () => {
-    //     try {
-    //     const { data } = await TMDBClient.get("/trending/all/day");
-        
-    //     const movies = data.results.slice(0, 3).map((movie) => ({
-    //         id: movie.id,
-    //         title: movie.title || movie.name,
-    //         tags: movie.genre_ids.slice(0, 2).map((id) => genres[id] || "Unknown Genre"), 
-    //         rating: movie.vote_average.toString(),
-    //         runtime: formatRuntime(movie.runtime), 
-    //         image: `https://image.tmdb.org/t/p/w500${movie.poster_path}`, 
-    //     }));
-    //     setTrendingMovies(movies);
-    //     } catch (error) {
-    //     console.error("Error fetching trending movies:", error);
-    //     }
-    // };
+    const fetchTrendingMovies = async () => {
+        try {
+            setLoading(true)
+            const { data } = await TMDBClient.get("/trending/all/day")
+            
+            const movies = data.results.slice(0, 3)
 
-    
-    // const formatRuntime = (minutes) => {
-    //     if (!minutes) return "N/A";
-    //     const hours = Math.floor(minutes / 60);
-    //     const mins = minutes % 60;
-    //     return `${hours}h ${mins}m`;
-    // };
+            const updatedMovies = await Promise.all(
+                movies.map(async (movie) => {
+                    const { data: movieDetails } = await TMDBClient.get(`/movie/${movie.id}`)
+                    
+                    return {
+                        ...movie,
+                        genres: movie.genre_ids.map( id => movieGenres[id] || "Unknown"),
+                        runtime: movieDetails.runtime,
+                        rating: movie.vote_average,
+                        poster_path: movie.poster_path ? `https://image.tmdb.org/t/p/original${movie.poster_path}` : null,
+                        backdrop_path: movie.backdrop_path ? `https://image.tmdb.org/t/p/original${movie.backdrop_path}` : null
+                    }
+                })
+            )
+            setTrendingMovies(updatedMovies)
+        } 
+        catch (err) {
+            toast.error(err.message)
+        }
+        finally{
+            setLoading(false)
+        }
+    }
 
-    // useEffect(() => {
-    //     fetchGenres(); 
-    // }, []);
 
-    // useEffect(() => {
-    //     if (Object.keys(genres).length) {
-    //     fetchTrendingMovies(); 
-    //     }
-    // }, [genres]);
+    useEffect(() => {
+        !genresLoading && fetchTrendingMovies()
+    }, [genresLoading])
 
 
     return (
@@ -89,19 +77,43 @@ const Trending = () => {
                 gap={4}
                 width="100%"
             >
-                {
-                Array.from({length: 3}).map( (_, k) => (
-                    <MovieCardTrending
-                    key={k}
-                    w={"100%"}
-                    title="Medellin"
-                    movie_tags={["Action", "Comedy"]}
-                    rating="8.5"
-                    runtime="3:12:00"
-                    image="/assets/images/dummy/Rectangle 3.png"
-                    />
-                ) )
-                }
+            {/* Dummy */}
+            {/* {
+            Array.from({length: 3}).map( (_, k) => (
+                <MovieCardTrending
+                key={k}
+                w={"100%"}
+                title="Medellin"
+                movie_tags={["Action", "Comedy"]}
+                rating="8.5"
+                runtime="3:12:00"
+                image="/assets/images/dummy/Rectangle 3.png"
+                />
+            ) )
+            } */}
+            
+            {
+            loading ?
+            Array.from({length: 3}).map( (_, k) => (
+                <Skeleton
+                w="100%"
+                h="300px"
+                borderRadius="8px"
+                key={k}
+                />
+            ) ) :
+            trendingMovies.map( (movie, k) => (
+                <MovieCardTrending
+                key={movie.id}
+                w={"100%"}
+                title={movie.title}
+                movie_tags={movie.genres}
+                runtime={`${Math.floor(movie.runtime / 60)}:${movie.runtime % 60 < 10 ? '0' : ''}${movie.runtime % 60}:00`}
+                rating={Number(movie.rating).toFixed(1)}
+                image={movie.poster_path}
+                />
+            ) )
+            }
             </Grid>
             <Flex
             flexWrap="wrap"

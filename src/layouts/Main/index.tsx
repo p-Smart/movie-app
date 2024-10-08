@@ -1,13 +1,57 @@
 import TopNav from "@/layouts/Main/TopNav"
 import { Stack } from "@chakra-ui/react"
-import { FC, PropsWithChildren } from "react"
+import { FC, PropsWithChildren, useEffect } from "react"
 import MediaMenu from "./TopNav/MediaMenu"
 import useGlobalStore from "@/stores"
+import Footer from "@/sections/home/Footer"
+import { TMDBClient } from "@/utils/axios"
+import toast from "react-hot-toast"
 
 
 
 const MainLayout: FC<PropsWithChildren> = (props) => {
-    const [openMediaMenu, setGlobalState] = useGlobalStore(state => [state.openMediaMenu, state.setGlobalState])
+    const [openMediaMenu, genresLoading, setGlobalState] = useGlobalStore(state => [state.openMediaMenu, state.genresLoading, state.setGlobalState])
+    
+    const fetchMovieGenres = async () => {
+        try {
+            const { data: movieGenresRes } = await TMDBClient.get('/genre/movie/list')
+            const movieGenres = movieGenresRes.genres
+            const movieGenreMap = {}
+            movieGenres.forEach((genre) => {
+                movieGenreMap[genre.id] = genre.name
+            })
+            setGlobalState("movieGenres", movieGenreMap)
+        } 
+        catch (err) {
+          toast.error(err.message)
+        }
+    }
+    const fetchSeriesGenres = async () => {
+        try {
+            const { data: seriesGenresRes } = await TMDBClient.get('/genre/tv/list')
+            const seriesGenres = seriesGenresRes.genres
+            const seriesGenreMap = {}
+            seriesGenres.forEach((genre) => {
+                seriesGenreMap[genre.id] = genre.name
+            })
+            setGlobalState("seriesGenres", seriesGenreMap)
+        } 
+        catch (err) {
+            toast.error(err.message)
+        }
+    }
+
+    const fetchGenres = async () => {
+        await Promise.all([
+            fetchMovieGenres(),
+            fetchSeriesGenres()
+        ])
+        setGlobalState("genresLoading", false)
+    }
+
+    useEffect( () => {
+        fetchGenres()
+    }, [] )
 
     return (
         <Stack>
@@ -17,6 +61,7 @@ const MainLayout: FC<PropsWithChildren> = (props) => {
             open={openMediaMenu}
             setOpen={(val: boolean) => setGlobalState("openMediaMenu", val)}
             />
+            <Footer />
         </Stack>
     )
 }

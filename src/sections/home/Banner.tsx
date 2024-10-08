@@ -53,7 +53,7 @@ const Banner = ({movies}: {movies: any []}) => {
                     >
                     <Slide
                     image={movie.backdrop_path}
-                    title="Avatar: The Way of Water"
+                    title={movie.title}
                     tags={movie.genres}
                     desp={movie.overview}
                     year={new Date(movie.release_date).getFullYear().toString()}

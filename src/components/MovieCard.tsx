@@ -3,12 +3,15 @@ import { SlSpeedometer } from "react-icons/sl"
 
 
 export interface IMovieCard extends StackProps {
-    
+    title: string;
+    image: string;
+    tag: string;
+    runtime: string;
 }
 
 
 const MovieCard = ({
-
+    title, image, tag, runtime,
     ...stackProps
 }: IMovieCard) => {
 
@@ -22,7 +25,7 @@ const MovieCard = ({
             w="100%"
             h="350px"
             borderRadius="8px"
-            backgroundImage={`url("/assets/images/dummy/Rectangle 6.png")`}
+            backgroundImage={`url("${image}")`}
             backgroundSize="cover"
             p="20px"
             position="relative"
@@ -32,11 +35,20 @@ const MovieCard = ({
             _active={{transform: 'scale(0.94)'}}
             />
 
-            <Flex alignItems="center" justify="space-between">
+            <Flex 
+            alignItems={{xs: "left", md: "center"}}
+            justify="space-between"
+            flexDir={{xs: "column", md: "row"}}
+            flexWrap="wrap"
+            >
                 <Text fontSize="1.1rem" isTruncated>
-                Ghosted
+                {title}
                 </Text>
-                <Flex gap="10px" alignItems="center">
+                <Flex 
+                gap="10px" 
+                alignItems="center"
+                justifyContent={{xs: "space-between", md: "unset"}}
+                >
                     <Text
                     bgColor="red"
                     color="white"
@@ -44,7 +56,7 @@ const MovieCard = ({
                     borderRadius="5px"
                     alignSelf="flex-start"
                     >
-                    HD
+                    {tag}
                     </Text>
                     <Flex 
                     border="1px solid"
@@ -56,7 +68,7 @@ const MovieCard = ({
                     alignSelf="flex-start"
                     >
                         <Box as={SlSpeedometer} size={18} />
-                        <Text>{"3:12:00"}</Text>
+                        <Text>{runtime}</Text>
                     </Flex>
                 </Flex>
             </Flex>

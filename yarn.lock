@@ -3374,6 +3374,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"goober@npm:^2.1.10":
+  version: 2.1.15
+  resolution: "goober@npm:2.1.15"
+  peerDependencies:
+    csstype: ^3.0.10
+  checksum: 10c0/144782b3777206560078121c90dd50fd498952f6400db89add6a82053423be5d7a84f7559933966a14b344ef9513c55abdd8757aebd13a0a465dea62ce821052
+  languageName: node
+  linkType: hard
+
 "gopd@npm:^1.0.1":
   version: 1.0.1
   resolution: "gopd@npm:1.0.1"
@@ -4067,6 +4076,7 @@ __metadata:
     next: "npm:14.2.3"
     react: "npm:^18"
     react-dom: "npm:^18"
+    react-hot-toast: "npm:^2.4.1"
     react-icons: "npm:^5.2.1"
     swiper: "npm:^11.1.14"
     typescript: "npm:^5"
@@ -4486,6 +4496,18 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/0df78f5b3367514b3443802f46ab5f12f583c823c9b885841b2ae99af7bd8871d85904ca47ccc767855684ee23cb63ed6f6b96cc7dcd37a594e9eece142706e7
+  languageName: node
+  linkType: hard
+
+"react-hot-toast@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "react-hot-toast@npm:2.4.1"
+  dependencies:
+    goober: "npm:^2.1.10"
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 10c0/591ecec3c6adc1cdb70f00165a57baa3d7f75d0d30fa767213c36496bdcc6be2b2e6a3edbf7c04f7d726a1b17dcfb5e7feb2136b04b17c9ccb769894b970f365
   languageName: node
   linkType: hard
 

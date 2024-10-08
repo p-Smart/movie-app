@@ -3,12 +3,16 @@ import { Box, Flex, Stack, StackProps, Text } from "@chakra-ui/react"
 
 
 export interface ISeriesCard extends StackProps {
-    
+    title: string;
+    eps: string | number;
+    seasons: string | number;
+    image: string;
+    tag: string;
 }
 
 
 const SeriesCard = ({
-
+    title, eps, seasons, image, tag,
     ...stackProps
 }: ISeriesCard) => {
 
@@ -22,7 +26,7 @@ const SeriesCard = ({
             w="100%"
             h="350px"
             borderRadius="8px"
-            backgroundImage={`url("/assets/images/dummy/Rectangle 13.png")`}
+            backgroundImage={`url("${image}")`}
             backgroundSize="cover"
             p="20px"
             position="relative"
@@ -40,15 +44,24 @@ const SeriesCard = ({
                 w="fit-content"
                 fontSize=".9rem"
                 >
-                47 EPs
+                {`${eps} EPs`}
                 </Text>
             </Box>
 
-            <Flex alignItems="center" justify="space-between">
+            <Flex 
+            alignItems={{xs: "left", md: "center"}}
+            justify="space-between"
+            flexDir={{xs: "column", md: "row"}}
+            flexWrap="wrap"
+            >
                 <Text fontSize="1.1rem" isTruncated>
-                The Night Agent
+                {title}
                 </Text>
-                <Flex gap="10px" alignItems="center">
+                <Flex 
+                gap="10px" 
+                alignItems="center"
+                justifyContent={{xs: "space-between", md: "unset"}}
+                >
                     <Text
                     bgColor="red"
                     color="white"
@@ -56,7 +69,7 @@ const SeriesCard = ({
                     borderRadius="5px"
                     alignSelf="flex-start"
                     >
-                    HD
+                    {tag}
                     </Text>
                     <Flex 
                     border="1px solid"
@@ -68,7 +81,7 @@ const SeriesCard = ({
                     alignSelf="flex-start"
                     flexShrink={0}
                     >
-                        <Text fontSize=".9rem">{"2 Seasons"}</Text>
+                        <Text fontSize=".9rem">{`${seasons} Seasons`}</Text>
                     </Flex>
                 </Flex>
             </Flex>

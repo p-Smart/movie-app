@@ -70,11 +70,16 @@ const MovieCardTrending = ({
                 />
             </Box>
 
-            <Flex alignItems="center" justify="space-between">
+            <Flex
+            gap="10px"
+            alignItems="center" 
+            justify="space-between"
+            flexWrap="wrap"
+            >
                 <Text variant="h6" isTruncated>
                 {title}
                 </Text>
-                <Flex gap="10px">
+                <Flex gap="10px" flexWrap="wrap">
                 {
                 movie_tags.map( (tag, k) => (
                     <Text
