@@ -1,56 +1,88 @@
-import { Box, Flex, IconButton, Stack, Text } from "@chakra-ui/react"
+import { Box, Flex, IconButton, Skeleton, Stack, Text } from "@chakra-ui/react"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import { useState } from "react"
-import SwiperCore from "swiper";
+import { useEffect, useState } from "react"
+import SwiperCore from "swiper"
 import { IoIosArrowRoundForward, IoMdArrowForward } from "react-icons/io"
+import { TMDBClient } from "@/utils/axios"
 
 
 
 const RecentlyUpdated = () => {
     const [swiper, setSwiper] = useState<SwiperCore>()
+    const [tvShows, setTvShows] = useState<any[]>([])
+    const [loading, setLoading] = useState(true)
 
-    const movies = [
-        {
-            title: "The Flash",
-            type: "Series/S 2/EP 9",
-            date: "11/05/23",
-            image: "/assets/images/dummy/Rectangle 22.png"
-        },
-        {
-            title: "The Flash",
-            type: "Series/S 2/EP 9",
-            date: "11/05/23",
-            image: "/assets/images/dummy/Rectangle 22.png"
-        },
-        {
-            title: "The Flash",
-            type: "Series/S 2/EP 9",
-            date: "11/05/23",
-            image: "/assets/images/dummy/Rectangle 22.png"
-        },
-        {
-            title: "The Flash",
-            type: "Series/S 2/EP 9",
-            date: "11/05/23",
-            image: "/assets/images/dummy/Rectangle 22.png"
-        },
-        {
-            title: "The Flash",
-            type: "Series/S 2/EP 9",
-            date: "11/05/23",
-            image: "/assets/images/dummy/Rectangle 22.png"
-        },
-        {
-            title: "The Flash",
-            type: "Series/S 2/EP 9",
-            date: "11/05/23",
-            image: "/assets/images/dummy/Rectangle 22.png"
-        },
-    ]
+    useEffect(() => {
+        const fetchTvShows = async () => {
+        try {
+            setLoading(true)
+            const { data } = await TMDBClient.get(`/tv/on_the_air`)
+
+            const fetchedTvShows = data.results.slice(0, 10).map((show: any) => ({
+                id: show.id,
+                title: show.name,
+                type: `Series / S${show.season_number || 'N/A'}/EP${show.episode_number || 'N/A'}`,
+                date: new Date(show.first_air_date).toLocaleDateString(),
+                image: `https://image.tmdb.org/t/p/original/${show.poster_path}`
+            }))
+
+            setTvShows(fetchedTvShows)
+        } 
+        catch (err) {
+            console.log(err)
+        }
+        finally{
+            setLoading(false)
+        }
+        }
+
+        fetchTvShows()
+    }, [])
+
+
+    // Dummy
+    // const tvShows = [
+    //     {
+    //         title: "The Flash",
+    //         type: "Series/S 2/EP 9",
+    //         date: "11/05/23",
+    //         image: "/assets/images/dummy/Rectangle 22.png"
+    //     },
+    //     {
+    //         title: "The Flash",
+    //         type: "Series/S 2/EP 9",
+    //         date: "11/05/23",
+    //         image: "/assets/images/dummy/Rectangle 22.png"
+    //     },
+    //     {
+    //         title: "The Flash",
+    //         type: "Series/S 2/EP 9",
+    //         date: "11/05/23",
+    //         image: "/assets/images/dummy/Rectangle 22.png"
+    //     },
+    //     {
+    //         title: "The Flash",
+    //         type: "Series/S 2/EP 9",
+    //         date: "11/05/23",
+    //         image: "/assets/images/dummy/Rectangle 22.png"
+    //     },
+    //     {
+    //         title: "The Flash",
+    //         type: "Series/S 2/EP 9",
+    //         date: "11/05/23",
+    //         image: "/assets/images/dummy/Rectangle 22.png"
+    //     },
+    //     {
+    //         title: "The Flash",
+    //         type: "Series/S 2/EP 9",
+    //         date: "11/05/23",
+    //         image: "/assets/images/dummy/Rectangle 22.png"
+    //     },
+    // ]
 
     return (
         <Stack
@@ -68,38 +100,54 @@ const RecentlyUpdated = () => {
                     onSwiper={setSwiper}
                     >
                     {
-                        movies.map( (movie, k) => (
-                            <SwiperSlide
-                            style={{
-                                width: 'auto'
-                            }}
-                            key={k}
-                            >
-                                <Flex gap="20px" alignItems="center">
-                                    <Box
-                                    as="img"
-                                    src={movie.image}
-                                    width="77px"
-                                    height="124px"
-                                    objectFit="cover"
-                                    borderRadius="7px"
-                                    />
-                                    <Stack
-                                    gap="10px"
-                                    >
-                                        <Text>
-                                        {movie.title}
-                                        </Text>
-                                        <Text>
-                                        {movie.type}
-                                        </Text>
-                                        <Text>
-                                        {movie.date}
-                                        </Text>
-                                    </Stack>
-                                </Flex>
-                            </SwiperSlide>
-                        ) )
+                    loading ?
+                    Array.from({length: 10}).map( (_, k) => (
+                        <SwiperSlide
+                        style={{
+                            width: 'auto'
+                        }}
+                        key={k}
+                        >
+                        <Skeleton
+                        w="77px"
+                        h="124px"
+                        borderRadius="8px"
+                        key={k}
+                        />
+                        </SwiperSlide>
+                    ) ) :
+                    tvShows.map( (tvShow, k) => (
+                        <SwiperSlide
+                        style={{
+                            width: 'auto'
+                        }}
+                        key={k}
+                        >
+                            <Flex gap="20px" alignItems="center">
+                                <Box
+                                as="img"
+                                src={tvShow.image}
+                                width="77px"
+                                height="124px"
+                                objectFit="cover"
+                                borderRadius="7px"
+                                />
+                                <Stack
+                                gap="10px"
+                                >
+                                    <Text>
+                                    {tvShow.title}
+                                    </Text>
+                                    <Text>
+                                    {tvShow.type}
+                                    </Text>
+                                    <Text>
+                                    {tvShow.date}
+                                    </Text>
+                                </Stack>
+                            </Flex>
+                        </SwiperSlide>
+                    ) )
                     }
                     </Swiper>
                 </Box>
