@@ -27,7 +27,7 @@ const Recommended = () => {
                     <Flex>
                     {
                     tabs.map( (tab, k) => {
-                        const color = tab===currTab ? "white" : useColorModeValue("black", "white")
+                        const color = tab===currTab ? "white" : colorMode==="light" ? "black" : "white"
 
                         return (
                             <Text
