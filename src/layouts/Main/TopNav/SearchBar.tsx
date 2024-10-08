@@ -13,7 +13,7 @@ const SearchBar = () => {
             borderRadius: '25px',
             p: '3px 7px',
             color: "black",
-            maxW: "416px"
+            maxW: {xs: "100%", xl: "416px"}
         }}
         endAdornment={
             <IconButton

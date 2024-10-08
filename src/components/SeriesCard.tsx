@@ -1,34 +1,28 @@
-import { Box, Flex, Stack, Text } from "@chakra-ui/react"
-import { IoMdPlayCircle, IoMdStar } from "react-icons/io"
-import { SlSpeedometer } from "react-icons/sl"
+import { Box, Flex, Stack, StackProps, Text } from "@chakra-ui/react"
 
 
 
-const MovieCard2 = () => {
+export interface ISeriesCard extends StackProps {
     
+}
 
-    const metadata = [
-        {
-            Icon: SlSpeedometer,
-            value: "3:12:00"
-        },
-        {
-            Icon: IoMdStar,
-            value: "8.5"
-        },
-    ]
-    const tags = ["Action", "Comedy"]
+
+const SeriesCard = ({
+
+    ...stackProps
+}: ISeriesCard) => {
 
     return (
         <Stack
-        w="250px" 
+        w={{xs: "100%", md: "250px"}}
         gap="20px"
+        {...stackProps}
         >
             <Box
             w="100%"
             h="350px"
             borderRadius="8px"
-            backgroundImage={`url("/assets/images/dummy/Rectangle 6.png")`}
+            backgroundImage={`url("/assets/images/dummy/Rectangle 13.png")`}
             backgroundSize="cover"
             p="20px"
             position="relative"
@@ -36,11 +30,23 @@ const MovieCard2 = () => {
             transition='all 0.2s ease-in-out'
             _hover={{filter: 'brightness(97%)'}}
             _active={{transform: 'scale(0.94)'}}
-            />
+            >
+                <Text
+                bgColor="red"
+                color="white"
+                p="5px 8px"
+                borderRadius="5px"
+                alignSelf="flex-start"
+                w="fit-content"
+                fontSize=".9rem"
+                >
+                47 EPs
+                </Text>
+            </Box>
 
             <Flex alignItems="center" justify="space-between">
-                <Text fontSize="1.1rem">
-                Ghosted
+                <Text fontSize="1.1rem" isTruncated>
+                The Night Agent
                 </Text>
                 <Flex gap="10px" alignItems="center">
                     <Text
@@ -60,9 +66,9 @@ const MovieCard2 = () => {
                     gap="5px" 
                     alignItems="center" 
                     alignSelf="flex-start"
+                    flexShrink={0}
                     >
-                        <Box as={SlSpeedometer} size={18} />
-                        <Text>{"3:12:00"}</Text>
+                        <Text fontSize=".9rem">{"2 Seasons"}</Text>
                     </Flex>
                 </Flex>
             </Flex>
@@ -71,4 +77,4 @@ const MovieCard2 = () => {
 }
 
 
-export default MovieCard2
+export default SeriesCard

@@ -20,8 +20,8 @@ const Banner = () => {
         w="100%"
         >
             <Swiper
-            loop
-            autoplay={{delay: 2500, pauseOnMouseEnter: true}}
+            // loop
+            // autoplay={{delay: 2500, pauseOnMouseEnter: true}}
             slidesPerView={1}
             pagination={{clickable: true}}
             modules={[Pagination, Autoplay]}
@@ -66,21 +66,22 @@ const Slide = () => {
     return (
         <Stack
         w="100%"
-        h="600px"
+        minH="600px"
         bgImage={`linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("/assets/images/dummy/Rectangle 2.png")`}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
         backgroundPosition="center center"
-        p="50px"
+        px={{xs: "20px", md: "50px", lg: "100px", xl: "150px"}}
+        py="50px"
         gap="50px"
         position="relative"
         >
             <Flex 
-            gap="30px" 
-            position="absolute" 
-            top="50%" 
-            left="50%"
-            transform="translate(-50%, -50%)"
+            gap="30px"
+            top={{xs: "20%", "2xl": "50%"}}
+            left={"50%"}
+            flexDir={{xs: "column", sm: "row"}}
+            m="auto"
             >
                 <Button
                 py="25px"
@@ -108,15 +109,15 @@ const Slide = () => {
             </Flex>
 
             <Stack
-            w="50%"
+            w={{xs: "100%", lg: "80%", xl: "50%"}}
             gap="20px"
             mt="auto"
             >
                 <Text variant="h4" color="white">
                 Avatar: The Way of Water
                 </Text>
-                <Flex gap="20px">
-                    <Flex gap="10px">
+                <Flex gap="20px" flexWrap="wrap">
+                    <Flex gap="10px" flexWrap="wrap">
                         {
                         tags.map( (tag, k) => (
                             <Text

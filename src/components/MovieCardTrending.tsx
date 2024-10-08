@@ -1,10 +1,18 @@
-import { Box, Flex, Stack, Text } from "@chakra-ui/react"
+import { Box, Flex, Stack, StackProps, Text } from "@chakra-ui/react"
 import { IoMdPlayCircle, IoMdStar } from "react-icons/io"
 import { SlSpeedometer } from "react-icons/sl"
 
 
 
-const MovieCard1 = () => {
+export interface IMovieCardTrending extends StackProps {
+    
+}
+
+
+const MovieCardTrending = ({
+
+    ...stackProps
+}: IMovieCardTrending) => {
     
 
     const metadata = [
@@ -21,8 +29,9 @@ const MovieCard1 = () => {
 
     return (
         <Stack
-        w="350px" 
+        w={{xs: "100%", md: "350px"}}
         gap="20px"
+        {...stackProps}
         >
             <Box
             w="100%"
@@ -59,7 +68,7 @@ const MovieCard1 = () => {
             </Box>
 
             <Flex alignItems="center" justify="space-between">
-                <Text variant="h6">
+                <Text variant="h6" isTruncated>
                 Medellin
                 </Text>
                 <Flex gap="10px">
@@ -84,4 +93,4 @@ const MovieCard1 = () => {
 }
 
 
-export default MovieCard1
+export default MovieCardTrending

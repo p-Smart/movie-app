@@ -106,16 +106,18 @@ const RecentlyUpdated = () => {
                 <IconButton
                 onClick={() => swiper.slideNext()}
                 ml="auto"
-                icon={<IoIosArrowRoundForward size="48px" />}
+                icon={<IoIosArrowRoundForward />}
                 aria-label="next"
                 bgColor="whiteAlpha.800"
                 color="black"
+                flexShrink={0}
                 _hover={{
                     bgColor: "whiteAlpha.800"
                 }}
                 borderRadius="50%"
-                w="60px"
-                h="60px"
+                w={{ xs: "40px", md: "50px", lg: "60px" }}
+                h={{ xs: "40px", md: "50px", lg: "60px" }}
+                fontSize={{ xs: "28px", md: "36px", lg: "48px" }}
                 />
             </Flex>
         </Stack>

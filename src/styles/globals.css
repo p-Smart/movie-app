@@ -10,7 +10,7 @@ html{ -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #4364f7;
+    background-color: red;
     border-radius: 2px;
 }
 
