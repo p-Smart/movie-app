@@ -1,13 +1,21 @@
 import TextField from "@/components/TextField"
+import useGlobalStore from "@/stores"
 import {IconButton} from "@chakra-ui/react"
+import { useEffect } from "react"
 import { IoSearch } from "react-icons/io5"
 
 
 
 const SearchBar = () => {
+    const [searchQuery, setGlobalState] = useGlobalStore(state => [state.searchQuery, state.setGlobalState])
+
+    useEffect( () => {
+
+    }, [searchQuery] )
 
     return (
         <TextField
+        onChange={(e) => setGlobalState("searchQuery", e.target.value)}
         placeholder="Search movies..."
         containerProps={{
             borderRadius: '25px',

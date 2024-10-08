@@ -2,6 +2,7 @@ import MovieCardTrending from "@/components/MovieCardTrending"
 import useGlobalStore from "@/stores"
 import { TMDBClient } from "@/utils/axios"
 import { Button, Flex, Grid, Skeleton, Stack, Text, useColorMode } from "@chakra-ui/react"
+import Link from "next/link"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { IoIosArrowRoundForward } from "react-icons/io"
@@ -64,6 +65,8 @@ const Trending = () => {
                 rightIcon={<IoIosArrowRoundForward />}
                 color={colorMode==="dark" ? "whiteAlpha.700" : "blackAlpha.700"}
                 ml="auto"
+                as={Link}
+                href="/search"
                 >
                     View all
                 </Button>

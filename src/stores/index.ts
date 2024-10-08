@@ -8,6 +8,7 @@ interface IGlobalStates {
   movieGenres: {[key: string]: string};
   seriesGenres: {[key: string]: string};
   genresLoading: boolean;
+  searchQuery: string;
   
   readonly setGlobalState: SetState<Omit<IGlobalStates, 'setGlobalState'>>;
 }
@@ -17,6 +18,7 @@ const useGlobalStore = create<IGlobalStates>((set) => ({
   movieGenres: {},
   seriesGenres: {},
   genresLoading: true,
+  searchQuery: "",
   openMediaMenu: false,
   mediaMenuRef: createRef<HTMLDivElement>(),
 

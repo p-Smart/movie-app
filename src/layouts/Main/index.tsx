@@ -54,7 +54,9 @@ const MainLayout: FC<PropsWithChildren> = (props) => {
     }, [] )
 
     return (
-        <Stack>
+        <Stack
+        minH="100vh"
+        >
             <TopNav />
             {props.children}
             <MediaMenu

@@ -7,6 +7,7 @@ const Footer = () => {
 
     return (
         <Flex
+        mt="auto"
         bgColor={colorMode==="light" ? "black" : "whiteAlpha.800"}
         color={colorMode==="light" ? "white" : "black"}
         w="100%"
