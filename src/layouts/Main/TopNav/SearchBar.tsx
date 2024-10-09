@@ -11,15 +11,14 @@ const SearchBar = () => {
     const router = useRouter()
     const [searchQuery, setGlobalState] = useGlobalStore(state => [state.searchQuery, state.setGlobalState])
 
-    useEffect( () => {
-        if(searchQuery && router.pathname !== "/search"){
-            router.push("/search")
-        }
-    }, [searchQuery] )
-
     return (
         <TextField
-        onChange={(e) => setGlobalState("searchQuery", e.target.value)}
+        onChange={(e) => {
+            setGlobalState("searchQuery", e.target.value)
+            if(e.target.value && router.pathname !== "/search"){
+                router.push("/search")
+            }
+        }}
         placeholder="Search movies..."
         containerProps={{
             borderRadius: '25px',

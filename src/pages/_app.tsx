@@ -1,4 +1,5 @@
 import Loader from "@/components/Loader"
+import useGlobalStore from "@/stores"
 import "@/styles/globals.css"
 import createTheme from "@/theme"
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
@@ -12,10 +13,14 @@ const App = ({ Component, pageProps }: AppProps) => {
   const theme = createTheme()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const setGlobalState = useGlobalStore(state => state.setGlobalState)
 
   useEffect(() => {
     const handleStart = () => setLoading(true)
-    const handleComplete = () => setLoading(false)
+    const handleComplete = () => {
+      setLoading(false)
+      setGlobalState("openMediaMenu", false)
+    }
 
     router.events.on("routeChangeStart", handleStart)
     router.events.on("routeChangeComplete", handleComplete)
