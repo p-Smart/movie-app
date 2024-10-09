@@ -20,8 +20,8 @@ const Banner = ({movies}: {movies: any []}) => {
         w="100%"
         >
             <Swiper
-            // loop
-            // autoplay={{delay: 2500, pauseOnMouseEnter: true}}
+            loop
+            autoplay={{delay: 2500, pauseOnMouseEnter: true}}
             slidesPerView={1}
             pagination={{clickable: true}}
             modules={[Pagination, Autoplay]}
