@@ -39,12 +39,13 @@ const NewReleaseM = () => {
                 })
             )
             setNewReleaseMovies(updatedMovies)
+            setLoading(false)
         } 
         catch (err) {
             toast.error(err.message)
         }
         finally{
-            setLoading(false)
+            
         }
     }
 
@@ -65,7 +66,7 @@ const NewReleaseM = () => {
                 rightIcon={<IoIosArrowRoundForward />}
                 color={colorMode==="dark" ? "whiteAlpha.700" : "blackAlpha.700"}
                 as={Link}
-                href="/search"
+                href="/movie"
                 >
                     View all
                 </Button>
@@ -105,6 +106,7 @@ const NewReleaseM = () => {
             newReleaseMovies.map( (movie, k) => (
                 <MovieCard
                 key={movie.id}
+                id={movie.id}
                 w={"100%"}
                 title={movie.title}
                 tag="HD"

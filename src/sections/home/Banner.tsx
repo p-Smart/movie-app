@@ -9,6 +9,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 import { Autoplay, Pagination} from 'swiper/modules';
+import Link from "next/link"
 
 
 
@@ -52,6 +53,7 @@ const Banner = ({movies}: {movies: any []}) => {
                     key={movie.id}
                     >
                     <Slide
+                    id={movie.id}
                     image={movie.backdrop_path}
                     title={movie.title}
                     tags={movie.genres}
@@ -70,6 +72,7 @@ const Banner = ({movies}: {movies: any []}) => {
 }
 
 interface ISlide {
+    id: string;
     image: string;
     title: string;
     tags: string[];
@@ -80,7 +83,7 @@ interface ISlide {
 }
 
 const Slide = (props: ISlide) => {
-    const { image, title, tags, desp, year, runtime, rating } = props;
+    const { image, title, tags, desp, year, runtime, rating, id } = props;
 
     const metadata = [
         {
@@ -124,6 +127,8 @@ const Slide = (props: ISlide) => {
                     _hover={{ bgColor: "red" }}
                     borderRadius="3px"
                     rightIcon={<IoMdPlayCircle />}
+                    as={Link}
+                    href={`/movie/${id}`}
                 >
                     Watch Now
                 </Button>
@@ -137,6 +142,8 @@ const Slide = (props: ISlide) => {
                     border="1px solid"
                     borderColor="red"
                     rightIcon={<GoClockFill />}
+                    as={Link}
+                    href={`/movie/${id}`}
                 >
                     Watch Later
                 </Button>

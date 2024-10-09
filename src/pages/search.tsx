@@ -3,7 +3,6 @@ import useGlobalStore from "@/stores"
 import { TMDBClient } from "@/utils/axios"
 import { Text } from "@chakra-ui/react"
 import { useState } from "react"
-import toast from "react-hot-toast"
 
 
 

@@ -1,8 +1,10 @@
 import { Box, Flex, Stack, StackProps, Text } from "@chakra-ui/react"
+import Link from "next/link";
 import { SlSpeedometer } from "react-icons/sl"
 
 
 export interface IMovieCard extends StackProps {
+    id: string;
     title: string;
     image: string;
     tag: string;
@@ -11,7 +13,7 @@ export interface IMovieCard extends StackProps {
 
 
 const MovieCard = ({
-    title, image, tag, runtime,
+    title, image, tag, runtime, id,
     ...stackProps
 }: IMovieCard) => {
 
@@ -33,6 +35,8 @@ const MovieCard = ({
             transition='all 0.2s ease-in-out'
             _hover={{filter: 'brightness(97%)'}}
             _active={{transform: 'scale(0.94)'}}
+            as={Link}
+            href={`/movie/${id}`}
             />
 
             <Flex 

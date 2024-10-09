@@ -38,12 +38,13 @@ const Trending = () => {
                 })
             )
             setTrendingMovies(updatedMovies)
+            setLoading(false)
         } 
         catch (err) {
             toast.error(err.message)
         }
         finally{
-            setLoading(false)
+            
         }
     }
 
@@ -66,7 +67,7 @@ const Trending = () => {
                 color={colorMode==="dark" ? "whiteAlpha.700" : "blackAlpha.700"}
                 ml="auto"
                 as={Link}
-                href="/search"
+                href="/movie"
                 >
                     View all
                 </Button>
@@ -109,6 +110,7 @@ const Trending = () => {
                 <MovieCardTrending
                 key={movie.id}
                 w={"100%"}
+                id={movie.id}
                 title={movie.title}
                 movie_tags={movie.genres}
                 runtime={`${Math.floor(movie.runtime / 60)}:${movie.runtime % 60 < 10 ? '0' : ''}${movie.runtime % 60}:00`}

@@ -1,4 +1,4 @@
-import { Box, Flex, IconButton, Skeleton, Stack, Text } from "@chakra-ui/react"
+import { Box, Button, Flex, IconButton, Skeleton, Stack, Text } from "@chakra-ui/react"
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import SwiperCore from "swiper"
 import { IoIosArrowRoundForward } from "react-icons/io"
 import { TMDBClient } from "@/utils/axios"
+import Link from "next/link"
 
 
 
@@ -123,7 +124,12 @@ const RecentlyUpdated = () => {
                         }}
                         key={k}
                         >
-                            <Flex gap="20px" alignItems="center">
+                            <Flex 
+                            gap="20px" 
+                            alignItems="center"
+                            as={Link}
+                            href={`/series/${tvShow.id}`}
+                            >
                                 <Box
                                 as="img"
                                 src={tvShow.image}

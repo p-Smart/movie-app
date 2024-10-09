@@ -1,8 +1,10 @@
 import { Box, Flex, Stack, StackProps, Text } from "@chakra-ui/react"
+import Link from "next/link";
 
 
 
 export interface ISeriesCard extends StackProps {
+    id: string;
     title: string;
     eps: string | number;
     seasons: string | number;
@@ -12,7 +14,7 @@ export interface ISeriesCard extends StackProps {
 
 
 const SeriesCard = ({
-    title, eps, seasons, image, tag,
+    title, eps, seasons, image, tag, id,
     ...stackProps
 }: ISeriesCard) => {
 
@@ -34,6 +36,8 @@ const SeriesCard = ({
             transition='all 0.2s ease-in-out'
             _hover={{filter: 'brightness(97%)'}}
             _active={{transform: 'scale(0.94)'}}
+            as={Link}
+            href={`/series/${id}`}
             >
                 <Text
                 bgColor="red"

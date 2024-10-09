@@ -1,10 +1,12 @@
 import { Box, Flex, Stack, StackProps, Text } from "@chakra-ui/react"
+import Link from "next/link";
 import { IoMdPlayCircle, IoMdStar } from "react-icons/io"
 import { SlSpeedometer } from "react-icons/sl"
 
 
 
 export interface IMovieCardTrending extends StackProps {
+    id: string;
     title: string;
     rating: string;
     runtime: string;
@@ -14,7 +16,7 @@ export interface IMovieCardTrending extends StackProps {
 
 
 const MovieCardTrending = ({
-    title, rating, runtime, movie_tags, image,
+    title, rating, runtime, movie_tags, image, id,
     ...stackProps
 }: IMovieCardTrending) => {
     
@@ -48,6 +50,8 @@ const MovieCardTrending = ({
             transition='all 0.2s ease-in-out'
             _hover={{filter: 'brightness(97%)'}}
             _active={{transform: 'scale(0.94)'}}
+            as={Link}
+            href={`/movie/${id}`}
             >
                 <Flex justifyContent="space-between" w="100%">
                     {

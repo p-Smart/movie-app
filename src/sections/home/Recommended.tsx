@@ -137,7 +137,7 @@ const Recommended = () => {
                 color={colorMode==="dark" ? "whiteAlpha.700" : "blackAlpha.700"}
                 ml="auto"
                 as={Link}
-                href="/search"
+                href="/all"
                 >
                     View all
                 </Button>
@@ -182,6 +182,7 @@ const Recommended = () => {
                 recommMovies.map( (movie, k) => (
                     <MovieCard
                     key={movie.id}
+                    id={movie.id}
                     w={"100%"}
                     title={movie.title}
                     tag="HD"
@@ -192,6 +193,7 @@ const Recommended = () => {
                 recommSeries.map( (movie, k) => (
                     <SeriesCard
                     key={movie.id}
+                    id={movie.id}
                     w="100%"
                     title={movie.name}
                     image={movie.poster_path}

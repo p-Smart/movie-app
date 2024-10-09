@@ -15,7 +15,6 @@ const NewReleaseS = () => {
     const [movieGenres, seriesGenres, genresLoading] = useGlobalStore(state => [state.movieGenres, state.seriesGenres, state.genresLoading])
     const [newReleaseSeries, setNewReleaseSeries] = useState([])
     const [loading, setLoading] = useState(true)
-    console.log("Series", newReleaseSeries)
 
     
     const fetchNewReleaseSeries = async () => {
@@ -40,12 +39,13 @@ const NewReleaseS = () => {
                 })
             )
             setNewReleaseSeries(updatedMovies)
+            setLoading(false)
         } 
         catch (err) {
             toast.error(err.message)
         }
         finally{
-            setLoading(false)
+            
         }
     }
 
@@ -67,7 +67,7 @@ const NewReleaseS = () => {
                 color={colorMode==="dark" ? "whiteAlpha.700" : "blackAlpha.700"}
                 ml="auto"
                 as={Link}
-                href="/search"
+                href="/series"
                 >
                     View all
                 </Button>
@@ -108,6 +108,7 @@ const NewReleaseS = () => {
             newReleaseSeries.map( (movie, k) => (
                 <SeriesCard
                 key={movie.id}
+                id={movie.id}
                 w="100%"
                 title={movie.name}
                 image={movie.poster_path}
