@@ -137,7 +137,7 @@ const Recommended = () => {
                 color={colorMode==="dark" ? "whiteAlpha.700" : "blackAlpha.700"}
                 ml="auto"
                 as={Link}
-                href="/all"
+                href="/search"
                 >
                     View all
                 </Button>
