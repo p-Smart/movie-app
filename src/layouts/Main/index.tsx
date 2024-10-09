@@ -53,6 +53,7 @@ const MainLayout: FC<PropsWithChildren> = (props) => {
         fetchGenres()
     }, [] )
 
+
     return (
         <Stack
         minH="100vh"

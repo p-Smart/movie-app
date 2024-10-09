@@ -8,7 +8,7 @@ export interface IMovieCard extends StackProps {
     title: string;
     image: string;
     tag: string;
-    runtime: string;
+    runtime?: string;
 }
 
 
@@ -45,7 +45,7 @@ const MovieCard = ({
             flexDir={{xs: "column", md: "row"}}
             flexWrap="wrap"
             >
-                <Text fontSize="1.1rem" isTruncated>
+                <Text fontSize="1.1rem" isTruncated whiteSpace="normal" wordBreak="break-word">
                 {title}
                 </Text>
                 <Flex 
@@ -62,6 +62,8 @@ const MovieCard = ({
                     >
                     {tag}
                     </Text>
+                    {
+                    runtime &&
                     <Flex 
                     border="1px solid"
                     borderColor="red"
@@ -74,6 +76,7 @@ const MovieCard = ({
                         <Box as={SlSpeedometer} size={18} />
                         <Text>{runtime}</Text>
                     </Flex>
+                    }
                 </Flex>
             </Flex>
         </Stack>

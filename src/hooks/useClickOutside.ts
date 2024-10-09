@@ -1,24 +1,30 @@
-import { MutableRefObject, useEffect, useRef } from "react"
+import { MutableRefObject, useEffect } from "react";
 
-
-const useClickOutside = <T>(handler: Function): MutableRefObject<T> => {
-    let domNode = useRef(null)
-
-    useEffect( () => {
-        let maybeHandler = (e: MouseEvent) => {
-            if(!domNode || !domNode.current?.contains(e.target)){
-                handler()
-            }
-        }
-
-        document.addEventListener('mousedown', maybeHandler)
-
-        return () => {
-            document.removeEventListener('mousedown', maybeHandler)
-        }
-    })
-
-    return domNode
+interface UseClickOutsideProps {
+    ref: MutableRefObject<HTMLElement | null> | MutableRefObject<HTMLElement | null>[];
+    handler: () => void;
 }
 
-export default useClickOutside
+const useClickOutside = ({ ref, handler }: UseClickOutsideProps): void => {
+    useEffect(() => {
+        const maybeHandler = (e: MouseEvent) => {
+            const refs = Array.isArray(ref) ? ref : [ref];
+
+            if (
+                !refs.some(
+                    r => r?.current && r.current.contains(e.target as Node)
+                )
+            ) {
+                handler();
+            }
+        };
+
+        document.addEventListener("mousedown", maybeHandler);
+
+        return () => {
+            document.removeEventListener("mousedown", maybeHandler);
+        };
+    }, [ref, handler]);
+};
+
+export default useClickOutside;

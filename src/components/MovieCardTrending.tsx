@@ -80,7 +80,7 @@ const MovieCardTrending = ({
             justify="space-between"
             flexWrap="wrap"
             >
-                <Text variant="h6" isTruncated>
+                <Text variant="h6" isTruncated whiteSpace="normal" wordBreak="break-word">
                 {title}
                 </Text>
                 <Flex gap="10px" flexWrap="wrap">

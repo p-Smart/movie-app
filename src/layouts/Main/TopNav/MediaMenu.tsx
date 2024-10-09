@@ -2,7 +2,7 @@ import { Button, IconButton, Stack, Text, useColorMode } from "@chakra-ui/react"
 import { Dispatch, FC, SetStateAction } from "react"
 import { motion } from "framer-motion"
 import useGlobalStore from "@/stores";
-import useClickOutside from "@/hooks/useClickOutsidee";
+import useClickOutside from "@/hooks/useClickOutside";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
 

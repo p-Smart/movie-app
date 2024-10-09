@@ -6,8 +6,8 @@ import Link from "next/link";
 export interface ISeriesCard extends StackProps {
     id: string;
     title: string;
-    eps: string | number;
-    seasons: string | number;
+    eps?: string | number;
+    seasons?: string | number;
     image: string;
     tag: string;
 }
@@ -39,6 +39,8 @@ const SeriesCard = ({
             as={Link}
             href={`/series/${id}`}
             >
+                {
+                eps &&
                 <Text
                 bgColor="red"
                 color="white"
@@ -50,6 +52,7 @@ const SeriesCard = ({
                 >
                 {`${eps} EPs`}
                 </Text>
+                }
             </Box>
 
             <Flex 
@@ -58,7 +61,7 @@ const SeriesCard = ({
             flexDir={{xs: "column", md: "row"}}
             flexWrap="wrap"
             >
-                <Text fontSize="1.1rem" isTruncated>
+                <Text fontSize="1.1rem" isTruncated whiteSpace="normal" wordBreak="break-word">
                 {title}
                 </Text>
                 <Flex 
@@ -75,6 +78,8 @@ const SeriesCard = ({
                     >
                     {tag}
                     </Text>
+                    {
+                    seasons &&
                     <Flex 
                     border="1px solid"
                     borderColor="red"
@@ -87,6 +92,7 @@ const SeriesCard = ({
                     >
                         <Text fontSize=".9rem">{`${seasons} Seasons`}</Text>
                     </Flex>
+                    }
                 </Flex>
             </Flex>
         </Stack>

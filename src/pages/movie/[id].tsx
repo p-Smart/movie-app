@@ -145,7 +145,7 @@ const MoviePage = () => {
                         {
                             loading ? <Skeleton h="30px" /> :
                             <Text variant="h5">
-                            {movie.name}
+                            {movie.title || movie.original_title}
                             </Text>
                         }
                         {
