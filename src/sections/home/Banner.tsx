@@ -8,7 +8,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import { Autoplay, Pagination} from 'swiper/modules';
+import { Autoplay, Pagination} from 'swiper/modules'
 import Link from "next/link"
 
 
@@ -83,7 +83,7 @@ interface ISlide {
 }
 
 const Slide = (props: ISlide) => {
-    const { image, title, tags, desp, year, runtime, rating, id } = props;
+    const { image, title, tags, desp, year, runtime, rating, id } = props
 
     const metadata = [
         {
@@ -98,7 +98,7 @@ const Slide = (props: ISlide) => {
             Icon: IoMdStar,
             value: rating,
         },
-    ];
+    ]
 
     return (
         <Stack
@@ -151,7 +151,7 @@ const Slide = (props: ISlide) => {
 
             <Stack w={{ xs: "100%", lg: "80%", xl: "50%" }} gap="20px" mt="auto">
                 <Text variant="h4" color="white">
-                    {title} {/* Using dynamic title */}
+                    {title}
                 </Text>
                 <Flex gap="20px" flexWrap="wrap">
                     <Flex gap="10px" flexWrap="wrap">
@@ -165,7 +165,7 @@ const Slide = (props: ISlide) => {
                                 borderRadius="25px"
                                 alignSelf="flex-start"
                             >
-                                {tag} {/* Using dynamic tags */}
+                                {tag}
                             </Text>
                         ))}
                     </Flex>
@@ -183,7 +183,7 @@ const Slide = (props: ISlide) => {
                 </Text>
             </Stack>
         </Stack>
-    );
+    )
 }
 
 export default Banner

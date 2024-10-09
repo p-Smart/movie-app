@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 import useGlobalStore from "@/stores";
 import useClickOutside from "@/hooks/useClickOutsidee";
 import { IoMdClose } from "react-icons/io";
+import Link from "next/link";
 
 const variants = {
   open: { opacity: 1, x: 0 },
@@ -62,23 +63,23 @@ const MediaMenu: FC<IMediaMenu> = ({
             alignItems="flex-start"
             mt="30px"
             >
-                <Button variant="unstyled">
+                <Button variant="unstyle" as={Link} href="/">
                     Home
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                     Genre
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                    Country
                 </Button>
 
-                <Button variant="unstyled">
+                <Button variant="unstyle" as={Link} href="/movie">
                     Movies
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle" as={Link} href="/series">
                     Series
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                    Login/Signup
                 </Button>
             </Stack>

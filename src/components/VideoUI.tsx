@@ -51,7 +51,7 @@ const VideoUI: FC<VideoUIProps> = ({ imageUrl }) => {
         bg="rgba(0, 0, 0, 0.6)"
         p="10px"
       >
-        <Slider aria-label="time-slider" defaultValue={30}>
+        <Slider aria-label="time-slider" defaultValue={10}>
           <SliderTrack bg="gray.600">
             <SliderFilledTrack bg="white" />
           </SliderTrack>
@@ -66,7 +66,7 @@ const VideoUI: FC<VideoUIProps> = ({ imageUrl }) => {
               color="whiteAlpha.900"
               variant="unstyled"
             />
-            <Text color="white" fontSize="14px">00:32 / 03:12</Text>
+            <Text color="white" fontSize="14px">00:00 / 00:00</Text>
           </Flex>
           <Flex alignItems="center" gap="10px">
             <IconButton

@@ -5,6 +5,7 @@ import ToggleColorMode from "../../../components/ToggleColorMode"
 import { useState } from "react"
 import { RiMenu4Fill } from "react-icons/ri"
 import useGlobalStore from "@/stores"
+import Link from "next/link"
 
 
 
@@ -21,13 +22,13 @@ const TopNav = () => {
         gap="20px"
         >
             <Flex gap="15px" display={{xs: 'none', xl: 'flex'}}>
-                <Button variant="unstyled">
+                <Button variant="unstyle" as={Link} href="/">
                     Home
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                     Genre
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                    Country
                 </Button>
             </Flex>
@@ -35,22 +36,28 @@ const TopNav = () => {
 
             <SearchBar />
 
-            <Flex gap="15px" display={{xs: 'none', xl: 'flex'}}>
-                <Button variant="unstyled">
+            <Flex gap="15px" display={{xs: 'none', xl: 'flex'}}
+            sx={{
+                "& a": {
+                    height: "unset"
+                }
+            }}
+            >
+                <Button variant="unstyle" as={Link} href="/movie">
                     Movies
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle" as={Link} href="/series">
                     Series
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                    Animation
                 </Button>
-                <Button variant="unstyled">
+                <Button variant="unstyle">
                    Login/Signup
                 </Button>
 
                 <IconButton 
-                variant="unstyled" 
+                variant="unstyle" 
                 aria-label="notifications" 
                 icon={<IoIosNotificationsOutline />}
                 fontSize="24px"

@@ -6,7 +6,6 @@ interface IEpisode {
     sn: string;
     title: string;
     desp: string;
-    active: boolean;
 }
 
 const Episode: FC<IEpisode> = ({
@@ -19,13 +18,22 @@ const Episode: FC<IEpisode> = ({
     return (
         <Stack
         w="100%"
+        h="fit-content"
         bgColor={colorMode==="dark" ? "whiteAlpha.300" : "darkAlpha.300"}
+        _hover={{
+            bgColor: "red",
+            ...colorMode==="light" && {color: "white"}
+        }}
+        borderRadius="5px"
+        p="10px 15px"
+        shadow="md"
         >
-            <Flex 
+            <Flex
             w="100%"
             gap="10px"
             as={Button}
             variant="unstyled"
+            justifyContent="left"
             onClick={() => {
                 if(open){
                     setOpen(false)
@@ -35,7 +43,9 @@ const Episode: FC<IEpisode> = ({
             }}
             >
                 <Box as={IoMdPlay} />
+                <Text whiteSpace="normal" wordBreak="break-word" textAlign="left">
                 {`Episode ${sn}: ${title}`}
+                </Text>
             </Flex>
             <Stack
             as={Collapse}

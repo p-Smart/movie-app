@@ -9,6 +9,7 @@ import SwiperCore from "swiper"
 import { IoIosArrowRoundForward } from "react-icons/io"
 import { TMDBClient } from "@/utils/axios"
 import Link from "next/link"
+import toast from "react-hot-toast"
 
 
 
@@ -34,7 +35,7 @@ const RecentlyUpdated = () => {
             setTvShows(fetchedTvShows)
         } 
         catch (err) {
-            console.log(err)
+            toast.error(err.message)
         }
         finally{
             setLoading(false)
