@@ -12,7 +12,6 @@ const VideoUI: FC<VideoUIProps> = ({ imageUrl }) => {
       position="relative"
       width="100%"
       height="450px"
-    //   maxW="640px" // Adjust width as needed
       borderRadius="10px"
       overflow="hidden"
       bg="gray.800"
