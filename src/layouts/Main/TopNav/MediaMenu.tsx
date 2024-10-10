@@ -42,7 +42,7 @@ const MediaMenu: FC<IMediaMenu> = ({
         bgColor={colorMode==="dark" ? "black" : "white"}
         p="50px 20px"
         gap="50px"
-        display={{xs: 'flex', xl: 'none'}}
+        display={{xs: 'flex', "2xl": 'none'}}
         borderLeft="3px solid"
         borderColor="red"
         shadow="lg"
@@ -66,10 +66,10 @@ const MediaMenu: FC<IMediaMenu> = ({
                 <Button variant="unstyle" as={Link} href="/">
                     Home
                 </Button>
-                <Button variant="unstyle">
+                <Button variant="unstyle" as={Link} href="/search">
                     Genre
                 </Button>
-                <Button variant="unstyle">
+                <Button variant="unstyle" as={Link} href="/search">
                    Country
                 </Button>
 
@@ -78,6 +78,9 @@ const MediaMenu: FC<IMediaMenu> = ({
                 </Button>
                 <Button variant="unstyle" as={Link} href="/series">
                     Series
+                </Button>
+                <Button variant="unstyle" as={Link} href="/search">
+                   Animation
                 </Button>
                 <Button variant="unstyle">
                    Login/Signup

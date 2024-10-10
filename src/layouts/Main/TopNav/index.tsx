@@ -21,14 +21,14 @@ const TopNav = () => {
         justifyContent="space-between"
         gap="20px"
         >
-            <Flex gap="15px" display={{xs: 'none', xl: 'flex'}}>
+            <Flex gap="15px" display={{xs: 'none', "2xl": 'flex'}}>
                 <Button variant="unstyle" as={Link} href="/">
                     Home
                 </Button>
-                <Button variant="unstyle">
+                 <Button variant="unstyle" as={Link} href="/search">
                     Genre
                 </Button>
-                <Button variant="unstyle">
+                <Button variant="unstyle" as={Link} href="/search">
                    Country
                 </Button>
             </Flex>
@@ -36,7 +36,7 @@ const TopNav = () => {
 
             <SearchBar />
 
-            <Flex gap="15px" display={{xs: 'none', xl: 'flex'}}
+            <Flex gap="15px" display={{xs: 'none', "2xl": 'flex'}}
             sx={{
                 "& a": {
                     height: "unset"
@@ -49,7 +49,7 @@ const TopNav = () => {
                 <Button variant="unstyle" as={Link} href="/series">
                     Series
                 </Button>
-                <Button variant="unstyle">
+                <Button variant="unstyle" as={Link} href="/search">
                    Animation
                 </Button>
                 <Button variant="unstyle">
@@ -72,7 +72,7 @@ const TopNav = () => {
             color={colorMode==="dark" ? "white" : "black"}
             fontSize="28px"
             onClick={() => setGlobalState("openMediaMenu", true)}
-            display={{xs: 'flex', xl: 'none'}}
+            display={{xs: 'flex', "2xl": 'none'}}
             />
         </Flex>
     )

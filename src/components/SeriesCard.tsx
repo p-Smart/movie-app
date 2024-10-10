@@ -30,6 +30,7 @@ const SeriesCard = ({
             borderRadius="8px"
             backgroundImage={`url("${image || "/assets/images/2606147_5627.png"}")`}
             backgroundSize="cover"
+            backgroundPosition="center center"
             p="20px"
             position="relative"
             cursor='pointer'

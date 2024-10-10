@@ -2,13 +2,14 @@ import TextField from "@/components/TextField"
 import useGlobalStore from "@/stores"
 import {IconButton} from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import { IoSearch } from "react-icons/io5"
 
 
 
 const SearchBar = () => {
     const router = useRouter()
+    const ref = useRef<HTMLInputElement>()
     const [searchQuery, setGlobalState] = useGlobalStore(state => [state.searchQuery, state.setGlobalState])
 
     useEffect(() => {
@@ -21,8 +22,15 @@ const SearchBar = () => {
         }
     }, [searchQuery])
 
+    useEffect( () => {
+        if(router.pathname === "/search"){
+            ref.current.focus()
+        }
+    }, [] )
+
     return (
         <TextField
+        ref={ref}
         onChange={(e) => {
             setGlobalState("searchQuery", e.target.value)
             if(e.target.value && router.pathname !== "/search"){
@@ -34,7 +42,7 @@ const SearchBar = () => {
             borderRadius: '25px',
             p: '3px 7px',
             color: "black",
-            maxW: {xs: "100%", xl: "416px"}
+            maxW: {xs: "100%", "2xl": "416px"}
         }}
         value={searchQuery}
         endAdornment={
