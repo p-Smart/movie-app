@@ -105,7 +105,10 @@ const SeriesPage = () => {
             setSuggMoviesLoading(true)
             const { data } = await TMDBClient.get(`/tv/${id}/recommendations`)
 
-            const movies = data.results.slice(0, 8)
+            const movies = 
+            data.results
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 8)
 
             const updatedMovies = await Promise.all(
                 movies.map(async (movie) => {

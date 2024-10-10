@@ -1,5 +1,5 @@
 import TopNav from "@/layouts/Main/TopNav"
-import { Stack } from "@chakra-ui/react"
+import { Box, Stack } from "@chakra-ui/react"
 import { FC, PropsWithChildren, useEffect } from "react"
 import MediaMenu from "./TopNav/MediaMenu"
 import useGlobalStore from "@/stores"
@@ -10,7 +10,7 @@ import toast from "react-hot-toast"
 
 
 const MainLayout: FC<PropsWithChildren> = (props) => {
-    const [openMediaMenu, genresLoading, setGlobalState] = useGlobalStore(state => [state.openMediaMenu, state.genresLoading, state.setGlobalState])
+    const [openMediaMenu, setGlobalState, topNavOffset] = useGlobalStore(state => [state.openMediaMenu, state.setGlobalState, state.topNavOffset])
     
     const fetchMovieGenres = async () => {
         try {
@@ -60,7 +60,11 @@ const MainLayout: FC<PropsWithChildren> = (props) => {
         overflow="hidden"
         >
             <TopNav />
+            <Box
+            pt={topNavOffset}
+            >
             {props.children}
+            </Box>
             <MediaMenu
             open={openMediaMenu}
             setOpen={(val: boolean) => setGlobalState("openMediaMenu", val)}

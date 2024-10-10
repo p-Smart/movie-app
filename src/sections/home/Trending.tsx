@@ -21,7 +21,12 @@ const Trending = () => {
             setLoading(true)
             const { data } = await TMDBClient.get("/trending/all/day")
             
-            const movies = data.results.slice(0, 3)
+            const movies = 
+            data.results
+            .filter(result => result.media_type === "movie")
+            .sort(() => 0.5 - Math.random()) // Shuffle
+            .slice(0, 3) // Get 3 random movies
+
 
             const updatedMovies = await Promise.all(
                 movies.map(async (movie) => {

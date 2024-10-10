@@ -3,8 +3,11 @@ import { createSetState, SetState } from './util';
 import { createRef, MutableRefObject } from 'react';
 
 interface IGlobalStates {
+  
   openMediaMenu: boolean;
   mediaMenuRef: MutableRefObject<HTMLDivElement>;
+  topNavRef: MutableRefObject<HTMLDivElement>;
+  topNavOffset: number;
   movieGenres: {[key: string]: string};
   seriesGenres: {[key: string]: string};
   genresLoading: boolean;
@@ -28,6 +31,8 @@ const useGlobalStore = create<IGlobalStates>((set) => ({
   searchQuery: getInitialSearchQuery(),
   openMediaMenu: false,
   mediaMenuRef: createRef<HTMLDivElement>(),
+  topNavRef: createRef<HTMLDivElement>(),
+  topNavOffset: 108,
 
 
   setGlobalState: createSetState<Omit<IGlobalStates, 'setGlobalState'>>(set),

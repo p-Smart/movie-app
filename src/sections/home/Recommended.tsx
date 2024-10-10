@@ -26,7 +26,10 @@ const Recommended = () => {
             setLoading(true)
             const { data } = await TMDBClient.get("/trending/movie/week")
             
-            const movies = data.results.slice(0, 4)
+            const movies = 
+            data.results
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4)
 
             const updatedMovies = await Promise.all(
                 movies.map(async (movie) => {
@@ -57,7 +60,10 @@ const Recommended = () => {
             setLoading(true)
             const { data } = await TMDBClient.get("/trending/tv/week")
             
-            const movies = data.results.slice(0, 4)
+            const movies = 
+            data.results
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4)
 
             const updatedMovies = await Promise.all(
                 movies.map(async (movie) => {

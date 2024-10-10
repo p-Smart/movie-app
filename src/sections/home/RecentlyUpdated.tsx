@@ -23,14 +23,23 @@ const RecentlyUpdated = () => {
         try {
             setLoading(true)
             const { data } = await TMDBClient.get(`/tv/on_the_air`)
+            
+            const fetchedTvShows = await Promise.all(
+            data.results
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 10)
+            .map( async (show: any) => {
+                const { data: tvShowDetails } = await TMDBClient.get(`/tv/${show.id}`)
 
-            const fetchedTvShows = data.results.slice(0, 10).map((show: any) => ({
-                id: show.id,
-                title: show.name,
-                type: `Series / S${show.season_number || 'N/A'}/EP${show.episode_number || 'N/A'}`,
-                date: new Date(show.first_air_date).toLocaleDateString(),
-                image: `https://image.tmdb.org/t/p/original/${show.poster_path}`
-            }))
+                return {
+                    id: show.id,
+                    title: show.name,
+                    type: `Series / S${tvShowDetails.last_episode_to_air.season_number || 'N/A'} / EP${tvShowDetails.last_episode_to_air.episode_number || 'N/A'}`,
+                    date: new Date(tvShowDetails.last_air_date).toLocaleDateString(),
+                    image: `https://image.tmdb.org/t/p/original/${show.poster_path}`
+                }
+            })
+            )
 
             setTvShows(fetchedTvShows)
         } 

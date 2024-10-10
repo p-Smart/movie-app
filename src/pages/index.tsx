@@ -36,7 +36,10 @@ const HomePage = (props) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
     const { data } = await TMDBClient.get("/movie/popular")
-    let movies = data.results.slice(0, 4) || []
+    let movies = 
+    data.results
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 4)
 
     const { data: genresRes } = await TMDBClient.get("/genre/movie/list")
     const genres = genresRes.genres

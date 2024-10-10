@@ -22,7 +22,10 @@ const NewReleaseM = () => {
             setLoading(true)
             const { data } = await TMDBClient.get("/movie/now_playing")
             
-            const movies = data.results.slice(0, 4)
+            const movies = 
+            data.results
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 4)
 
             const updatedMovies = await Promise.all(
                 movies.map(async (movie) => {
