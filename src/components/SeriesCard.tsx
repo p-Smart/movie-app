@@ -69,6 +69,7 @@ const SeriesCard = ({
                 gap="10px" 
                 alignItems="center"
                 justifyContent={{xs: "space-between", md: "unset"}}
+                ml="auto"
                 >
                     <Text
                     bgColor="red"

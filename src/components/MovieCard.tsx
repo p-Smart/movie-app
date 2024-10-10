@@ -49,10 +49,11 @@ const MovieCard = ({
                 <Text fontSize="1.1rem" isTruncated whiteSpace="normal" wordBreak="break-word">
                 {title}
                 </Text>
-                <Flex 
+                <Flex
                 gap="10px" 
                 alignItems="center"
                 justifyContent={{xs: "space-between", md: "unset"}}
+                ml="auto"
                 >
                     <Text
                     bgColor="red"
