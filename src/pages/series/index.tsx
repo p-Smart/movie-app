@@ -37,13 +37,12 @@ const SeriesPage = () => {
             setMovies(updatedMovies)
             setTotalPages(data.total_pages)
             setTotalItems(data.total_results)
-            setLoading(false)
         } 
         catch (err) {
             toast.error(err.message)
         }
         finally{
-            
+            setLoading(false)
         }
     }
 
@@ -129,11 +128,14 @@ const SeriesPage = () => {
             
             {
                !loading && movies.length ?
+               <>
                <Pagination
-                totalPages={totalPages}
+                totalPages={totalPages>500 ? 500 : totalPages}
                 currentPage={page || 1}
                 onChange={(pageNumber) => setPage(pageNumber)}
-                /> : null 
+                />
+                {totalPages>500 ? <Text textAlign="center" fontStyle="italic">Our Provider (TMDB) allows access to first 500 pages only.</Text> : null}
+               </> : null
             }
             </Stack>
         </MainLayout>
