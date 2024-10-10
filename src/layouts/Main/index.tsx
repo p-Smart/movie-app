@@ -57,6 +57,7 @@ const MainLayout: FC<PropsWithChildren> = (props) => {
     return (
         <Stack
         minH="100vh"
+        overflow="hidden"
         >
             <TopNav />
             {props.children}

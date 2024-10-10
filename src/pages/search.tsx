@@ -20,31 +20,44 @@ const SearchPage = () => {
     const [totalItems, setTotalItems]= useState(0)
     const [loading, setLoading] = useState(true)
 
-    const fetchMovies = async () => {
+    const fetchMoviesAndSeries = async () => {
         try {
             setLoading(true)
-            const { data } = await TMDBClient.get(`/search/multi?page=${page || 1}&query=${searchQuery}`)
-            
-            const movies = data.results
+        
+            const [moviesData, tvShowsData] = await Promise.all([
+                TMDBClient.get(`/search/movie?page=${page || 1}&query=${searchQuery}`),
+                TMDBClient.get(`/search/tv?page=${page || 1}&query=${searchQuery}`)
+            ])
 
-            const updatedMovies =
-                movies.map( (movie) => ({
-                        ...movie,
-                        rating: movie.vote_average,
-                        poster_path: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null,
-                        backdrop_path: movie.backdrop_path ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}` : null
-                }))
-                
-            setMovies(updatedMovies)
-            setTotalPages(data.total_pages)
-            setTotalItems(data.total_results)
-            setLoading(false)
+            const updatedMovies = moviesData.data.results.map((movie) => ({
+                ...movie,
+                media_type: 'movie',
+                rating: movie.vote_average,
+                poster_path: movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : null,
+                backdrop_path: movie.backdrop_path ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}` : null,
+            }));
+
+            const updatedTVShows = tvShowsData.data.results.map((tvShow) => ({
+                ...tvShow,
+                media_type: 'tv',
+                rating: tvShow.vote_average,
+                poster_path: tvShow.poster_path ? `https://image.tmdb.org/t/p/w500${tvShow.poster_path}` : null,
+                backdrop_path: tvShow.backdrop_path ? `https://image.tmdb.org/t/p/w500${tvShow.backdrop_path}` : null,
+            }));
+
+            const mergedResults = [...updatedMovies, ...updatedTVShows].sort((a, b) => 
+                (a.title || a.name)?.localeCompare(b.title || b.name)
+            );
+
+            setMovies(mergedResults);
+            setTotalPages(Math.max(moviesData.data.total_pages, tvShowsData.data.total_pages))
+            setTotalItems(moviesData.data.total_results + tvShowsData.data.total_results)
         } 
         catch (err) {
             toast.error(err.message)
         }
         finally{
-            
+            setLoading(false)
         }
     }
 
@@ -52,22 +65,24 @@ const SearchPage = () => {
         setLoading(true)
         const delayDebounceFn = setTimeout(() => {
           if (searchQuery.trim()) {
-            fetchMovies() 
+            fetchMoviesAndSeries()
+          }
+          else{
+            if(searchQuery===""){
+                setLoading(false)
+                setMovies([])
+            }
           }
         }, 500)
       
-        return () => clearTimeout(delayDebounceFn)
-      }, [searchQuery])
+        return () => {
+            clearTimeout(delayDebounceFn)
+        }
+    }, [searchQuery, page])
 
     useEffect( () => {
-        fetchMovies()
-    }, [
-        page,
-    ] )
-
-    let startItem = ((page || 1) - 1) * movies.length + 1
-    let endItem = Math.min((page || 1) * movies.length, totalItems)
-
+        setPage(1)
+    }, [searchQuery] )
 
     useEffect(() => {
         if(page){
@@ -84,7 +99,6 @@ const SearchPage = () => {
           setPage(Number(query.page) || 1)
         }
     }, [isReady, query.page])
-
 
     return (
         <MainLayout>
@@ -112,7 +126,7 @@ const SearchPage = () => {
                 <Text
                 alignSelf="flex-end"
                 >
-                Showing <strong>{startItem} - {endItem}</strong> of <strong>{totalItems.toLocaleString()}</strong> results
+                Showing <strong>{movies.length}</strong> of <strong>{totalItems.toLocaleString()}</strong> results
                 </Text> : null
             )
             }
@@ -162,11 +176,14 @@ const SearchPage = () => {
             
             {
                !loading && movies.length ?
+               <>
                <Pagination
-                totalPages={totalPages}
+                totalPages={totalPages>500 ? 500 : totalPages}
                 currentPage={page || 1}
                 onChange={(pageNumber) => setPage(pageNumber)}
-                /> : null 
+                />
+                {totalPages>500 ? <Text textAlign="center" fontStyle="italic">Our Provider (TMDB) allows access to first 500 pages only.</Text> : null}
+               </> : null
             }
             </Stack>
         </MainLayout>

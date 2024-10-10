@@ -27,8 +27,8 @@ html{ -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
     width: 14px !important;
     height: 14px !important;
     opacity: 1 !important;
-  }
-  
-  .swiper-pagination-bullet-active {
+}
+
+.swiper-pagination-bullet-active {
     background-color: red !important;
-  }
+}

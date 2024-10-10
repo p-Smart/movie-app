@@ -22,6 +22,8 @@ const MoviePage = () => {
     const [movieGenres] = useGlobalStore(state => [state.movieGenres])
     const [suggMovies, setSuggMovies] = useState([])
     const [suggMoviesLoading, setSuggMoviesLoading] = useState(true)
+    const [videoLoadng, setVideoLoading] = useState(true)
+    const [videoUrl, setVideoUrl] = useState("")
 
 
     const fetchMovie = async () => {
@@ -48,6 +50,42 @@ const MoviePage = () => {
         } 
         finally {
             
+        }
+    }
+    const fetchMovieVideo = async () => {
+        setVideoLoading(true)
+        try {
+          const { data } = await TMDBClient.get(`/movie/${id}/videos`)
+      
+          const videos = data.results
+          let selectedVideo
+      
+          selectedVideo = videos.find((video: any) => video.type === "Trailer")
+      
+          if (!selectedVideo) {
+            selectedVideo = videos.length > 0 ? videos[0] : null
+          }
+      
+          if (selectedVideo) {
+            if (selectedVideo.site === "YouTube") {
+              setVideoUrl(`https://www.youtube.com/watch?v=${selectedVideo.key}`)
+            } 
+            else if (selectedVideo.site === "Vimeo") {
+              setVideoUrl(`https://vimeo.com/${selectedVideo.key}`)
+            } 
+            else {
+              setVideoUrl(`https://www.${selectedVideo.site.toLowerCase()}.com/watch?v=${selectedVideo.key}`)
+            }
+          } 
+          else {
+            setVideoUrl("")
+          }
+        } 
+        catch (err) {
+          toast.error(err.message)
+        } 
+        finally {
+          setVideoLoading(false)
         }
     }
     const fetchSuggMovies = async () => {
@@ -87,6 +125,7 @@ const MoviePage = () => {
     useEffect( () => {
         id && fetchMovie()
         id && fetchSuggMovies()
+        id && fetchMovieVideo()
     }, [id] )
 
 
@@ -113,8 +152,8 @@ const MoviePage = () => {
             gap="50px"
             >
                 {
-                loading ? <Skeleton w="100%" h="450px"  /> :
-                <VideoUI imageUrl={movie.backdrop_path} />
+                videoLoadng ? <Skeleton w="100%" h="450px"  /> :
+                <VideoUI imageUrl={movie.backdrop_path} videoUrl={videoUrl} />
                 }
                 <Flex 
                 gap="30px"

@@ -13,12 +13,19 @@ interface IGlobalStates {
   readonly setGlobalState: SetState<Omit<IGlobalStates, 'setGlobalState'>>;
 }
 
+const getInitialSearchQuery = () => {
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('query') || "";
+  }
+  return "";
+}
 
 const useGlobalStore = create<IGlobalStates>((set) => ({
   movieGenres: {},
   seriesGenres: {},
   genresLoading: true,
-  searchQuery: "",
+  searchQuery: getInitialSearchQuery(),
   openMediaMenu: false,
   mediaMenuRef: createRef<HTMLDivElement>(),
 

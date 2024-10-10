@@ -11,6 +11,16 @@ const SearchBar = () => {
     const router = useRouter()
     const [searchQuery, setGlobalState] = useGlobalStore(state => [state.searchQuery, state.setGlobalState])
 
+    useEffect(() => {
+        if(searchQuery){
+            const queryParams = new URLSearchParams(window.location.search)
+            queryParams.set("query", searchQuery)
+
+            const newUrl = `${window.location.pathname}?${queryParams.toString()}`
+            window.history.replaceState(null, '', newUrl)
+        }
+    }, [searchQuery])
+
     return (
         <TextField
         onChange={(e) => {
