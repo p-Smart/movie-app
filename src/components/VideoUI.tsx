@@ -1,5 +1,5 @@
-import { Box, IconButton, Image, Flex, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Text } from "@chakra-ui/react"
-import { FC } from "react"
+import { Box, IconButton, Image, Flex, Slider, SliderTrack, SliderFilledTrack, SliderThumb, Text, Spinner } from "@chakra-ui/react"
+import { FC, useState } from "react"
 import { IoMdPlayCircle, IoMdPause, IoMdResize, IoMdVolumeHigh } from "react-icons/io"
 import ReactPlayer from "react-player";
 
@@ -9,6 +9,15 @@ interface VideoUIProps {
 }
 
 const VideoUI: FC<VideoUIProps> = ({ imageUrl, videoUrl }) => {
+    const [loading, setLoading] = useState(true)
+
+    const handleReady = () => {
+        setLoading(false)
+    }
+
+    const handleError = () => {
+        setLoading(false)
+    }
 
     if(videoUrl){
         return (
@@ -16,12 +25,32 @@ const VideoUI: FC<VideoUIProps> = ({ imageUrl, videoUrl }) => {
             position="relative"
             pt="56.25%"
             >
+            {loading && (
+            <Box
+            position="absolute"
+            top="50%"
+            left="50%"
+            transform="translate(-50%, -50%)"
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            bg="rgba(0, 0, 0, 0.5)"
+            borderRadius="10px"
+            padding="20px"
+            >
+            <Spinner size="lg" color="white" />
+            <Text color="white" marginTop="10px">Loading video...</Text>
+            </Box>
+        )}
             <ReactPlayer
             className='react-player'
             url={videoUrl}
             controls
             config={{ file: { attributes: { controlsList: 'nodownload' } } }}
-            onContextMenu={e => e.preventDefault()}
+            // onContextMenu={e => e.preventDefault()}
+            onReady={handleReady}
+            onError={handleError}
             width='100%'
             height='100%'
             style={{
