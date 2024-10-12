@@ -37,7 +37,7 @@ const SearchBar = () => {
                 router.push("/search")
             }
         }}
-        placeholder="Search movies..."
+        placeholder="Search movies & series..."
         containerProps={{
             borderRadius: '25px',
             p: '3px 7px',

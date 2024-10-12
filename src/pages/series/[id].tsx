@@ -149,10 +149,6 @@ const SeriesPage = () => {
             Icon: MdCalendarMonth,
             value: new Date(movie.first_air_date).getFullYear().toString(),
         },
-        // {
-        //     Icon: SlSpeedometer,
-        //     value: runtime,
-        // },
         {
             Icon: IoMdStar,
             value: Number(movie.vote_average).toFixed(1),
@@ -224,8 +220,8 @@ const SeriesPage = () => {
                             <Flex gap="20px">
                                 {metadata.map((data, k) => (
                                     <Flex gap="5px" alignItems="center" key={k}>
-                                        <Box color="white" as={data.Icon} size={24} />
-                                        <Text color="white">{data.value}</Text>
+                                        <Box color={colorMode==="dark" ? "white" : "black"} as={data.Icon} size={24} />
+                                        <Text color={colorMode==="dark" ? "white" : "black"}>{data.value}</Text>
                                     </Flex>
                                 ))}
                             </Flex>

@@ -85,6 +85,9 @@ const MoviesPage = () => {
             gap="50px"
             alignItems="center"
             >
+            <Text variant="h5" alignSelf="flex-start">
+            Discover Movies
+            </Text>
             
             {
             loading ? <Skeleton alignSelf="flex-end" w="150px" h="20px" /> :
